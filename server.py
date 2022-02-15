@@ -9,6 +9,22 @@ Functions:
 
 import ipaddress
 import argparse
+import http.server
+
+
+class HKPRequestHandler(http.server.BaseHTTPRequestHandler):
+    """HKP Request Handler Class"""
+
+
+def run_server(server_class=http.server.ThreadingHTTPServer,
+               handler_class=HKPRequestHandler,
+               ip_address='',
+               tcp_port=11371):
+    """Run HTTP server with HKP request handler"""
+    ip_address = str(ip_address)
+    server_address = (ip_address, tcp_port)
+    httpd = server_class(server_address, handler_class)
+    httpd.serve_forever()
 
 
 def port(val):
@@ -40,7 +56,7 @@ def main():
 
     args = parser.parse_args()
 
-    print(f'Server address parsed as {args.address}, port as {args.port}')
+    run_server(ip_address=args.address, tcp_port=args.port)
 
 
 if __name__ == '__main__':
