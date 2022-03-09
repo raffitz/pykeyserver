@@ -3,9 +3,14 @@
 
 Uses the python http.server module to create an HKP keyserver (pykeyserver)
 
+Classes:
+    HKPRequestHandler -> Class to handle HKP requests
+    
 Functions:
 
-    port(number or string or bytes or bytearray) -> 16 bit integer"""
+    port(number or string or bytes or bytearray) -> 16 bit integer
+    run_server(server_class, handler_class,
+        ip_address, tcp_port) -> creates an instance of an HTTP server that handles HKP requests"""
 
 import ipaddress
 import argparse
